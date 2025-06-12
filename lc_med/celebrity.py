@@ -27,3 +27,95 @@ Output: -1
 Explanation: There is no celebrity.
 
 '''
+
+
+# Function to find the celebrity
+def celebrity(mat):
+    n = len(mat)
+    st = []
+
+    # Push everybody in stack
+    for i in range(n):
+        st.append(i)
+
+    # Find a potential celebrity
+    while len(st) > 1:
+
+        a = st.pop()
+        b = st.pop()
+
+        # if a knows b
+        knows = mat[a][b]
+        if knows:
+            st.append(b)
+        else:
+            st.append(a)
+
+    # Potential candidate of celebrity
+    c = st.pop()
+
+    # Check if c is actually
+    # a celebrity or not
+    for i in range(n):
+        if i == c:
+            continue
+
+        # If any person doesn't
+        # know 'c' or 'c' doesn't
+        # know any person, return -1
+        if mat[c][i] or not mat[i][c]:
+            return -1
+
+    return c
+
+def celeb_map(mat):
+    in_map = dict()
+    out_map = dict()
+    n = len(mat)
+    for i in range(n):
+        for j in range(n):
+            if mat[i][j] == 1:
+                if i in out_map.keys():
+                    out_map[i] +=1
+                else:
+                    out_map[i] = 1
+                if j in in_map.keys():
+                    in_map[j] +=1
+                else:
+                    in_map[j] = 1
+
+    print(in_map)
+    print(out_map)
+    for k,v in out_map.items():
+        if v == 1:
+            if in_map[k] == n:
+                return k
+            else:
+                return -1
+    return -1
+
+def test_celeb(mat):
+    n = len(mat)
+    canditate = []
+    for i in range(n):
+        if mat[i].count(1) == 1:
+            canditate.append(i)
+    if len(canditate) == 1:
+        c = canditate[0]
+        for j in range(n):
+            if j != i:
+                if mat[c][j] != 0:
+                    return -1
+            return c
+    return -1
+
+
+
+
+if __name__ == "__main__":
+    mat = [[1,1,0,1],
+           [0,1,0,1],
+           [1,1,1,1],
+           [0,1,0,1]]
+    # mat = [[1,1,0],[0,1,0],[1,1,1]]
+    print(test_celeb(mat))
