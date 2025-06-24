@@ -114,8 +114,8 @@ def test_celeb(mat):
 
 if __name__ == "__main__":
     mat = [[1,1,0,1],
-           [0,1,0,1],
+           [0,1,0,0],
            [1,1,1,1],
            [0,1,0,1]]
     # mat = [[1,1,0],[0,1,0],[1,1,1]]
-    print(test_celeb(mat))
+    print(celeb_map(mat))
