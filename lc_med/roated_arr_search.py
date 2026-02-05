@@ -61,5 +61,5 @@ def search(nums: List[int], target: int) -> int:
 
 if __name__ == '__main__':
     arr = [4,5,6,7,0,1,2]
-    tar = 3
+    tar = 7
     print(search(arr, tar))
